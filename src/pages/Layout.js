@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import routes from '../routes';
+import NavBar from './shared/NavBar';
 
 const Routes = () => (
   <Switch>
@@ -17,7 +18,7 @@ const Routes = () => (
 
 const Document = () => (
   <Fragment>
-    <div>Layout</div>
+    <NavBar />
     <Routes />
   </Fragment>
 );

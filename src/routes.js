@@ -1,5 +1,5 @@
 import asyncComponent from './components/AsyncComponent';
-import Home from './pages/Home';
+import AirCraft from './pages/AirCraft';
 import { nextNumber } from './utils/general';
 
 const nextRouteIndex = nextNumber();
@@ -12,11 +12,11 @@ const createRoute = (url, component, exact = false) => ({
 });
 
 export default [
-  createRoute('/', Home, true),
+  createRoute('/', AirCraft, true),
   createRoute(
-    '/home',
+    '/aircraft',
     asyncComponent(() =>
-      import('./pages/Home.js').then(module => module.default),
+      import('./pages/AirCraft.js').then(module => module.default),
     ),
   ),
 ];
