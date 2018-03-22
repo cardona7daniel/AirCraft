@@ -31,9 +31,9 @@ export default function requestGetDataAirCraft() {
     dispatch(getDataAirCraftProgress());
     getDataAirCraft()
       .then(response => {
-        if (response.statusText === 'OK') {
-          console.log(response.data);
-          dispatch(getDataAirCraftSuccess(response.data));
+        if (response.status === 200) {
+          console.log(response.data.acList);
+          dispatch(getDataAirCraftSuccess(response.data.acList));
         } else {
           dispatch(
             setMessage(

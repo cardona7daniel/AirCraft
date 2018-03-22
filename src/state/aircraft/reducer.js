@@ -20,7 +20,7 @@ export default function aircraftApp(state = initialState, action) {
     case REQUEST_GET_DATA_AIRCRAFT_SUCCESS: {
       return {
         ...state,
-        dataAircraft: action.dataLogin,
+        dataAircraft: action.dataAircraft,
         loading: false,
       };
     }

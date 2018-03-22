@@ -1,6 +1,4 @@
-import InstanceAxios from './instance';
-
-const axios = InstanceAxios();
+import axios from './instance';
 
 // eslint-disable-next-line import/prefer-default-export
 export default function getDataAirCraft(data) {
