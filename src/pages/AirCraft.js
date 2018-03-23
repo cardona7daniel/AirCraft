@@ -44,20 +44,11 @@ class AirCraft extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.dataAircraft && nextProps.dataAircraft.length > 0) {
-      this.setState({
-        dataAircraft: nextProps.dataAircraft.filter(x => x.Lat && x.Long),
-      });
-    }
-  }
-
-  onInputChange = e => {
-    const { dataAircraft } = this.props;
-    const value = e.target.value;
-    clearTimeout(this._timeout);
-    this._timeout = setTimeout(() => {
-      const dataFiltered = dataAircraft
+      const { valueNumber, country } = this.state;
+      const value = !!country ? country : '';
+      const dataFiltered = nextProps.dataAircraft
         .map(record => {
-          if (record.Cou.toLowerCase().indexOf(value) === -1) {
+          if (record.Cou.toLowerCase().indexOf(value.toLowerCase()) === -1) {
             return null;
           }
           return {
@@ -66,8 +57,36 @@ class AirCraft extends Component {
         })
         .filter(record => !!record && record.Lat && record.Long);
       this.setState({
-        dataAircraft: dataFiltered,
+        dataAircraft: !!valueNumber
+          ? dataFiltered.filter((x, i) => i < valueNumber)
+          : dataFiltered,
+        dataAircraftOld: nextProps.dataAircraft.filter(x => x.Lat && x.Long),
+      });
+    }
+  }
+
+  onInputChange = e => {
+    const { dataAircraft } = this.props;
+    const { valueNumber } = this.state;
+    const value = e.target.value;
+    clearTimeout(this._timeout);
+    this._timeout = setTimeout(() => {
+      const dataFiltered = dataAircraft
+        .map(record => {
+          if (record.Cou.toLowerCase().indexOf(value.toLowerCase()) === -1) {
+            return null;
+          }
+          return {
+            ...record,
+          };
+        })
+        .filter(record => !!record && record.Lat && record.Long);
+      this.setState({
+        dataAircraft: !!valueNumber
+          ? dataFiltered.filter((x, i) => i < valueNumber)
+          : dataFiltered,
         dataAircraftOld: dataFiltered,
+        country: value,
       });
     }, 200);
   };
